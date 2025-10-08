@@ -1,0 +1,657 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="user_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    
+    <div id="welcomeMessage" class="welcome-banner">
+        <p>👋 WELCOME TO USER DASHBOARD</p>
+    </div>
+
+    <input type="checkbox" id="check">
+    <label for="check" class="menu-btn">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+    </label>
+
+    <div class="sidebar">
+        <h2><i class="fa-solid fa-user" style="margin-right: 8px;"></i>Hello, User</h2>
+
+        <ul>
+            <li onclick="showSection('profile')"><i class="fa-solid fa-user"></i> Profile</li>
+            <li onclick="showSection('workout')"><i class="fa-solid fa-dumbbell"></i> Workouts</li>
+            <li onclick="showSection('nutrition')"><i class="fa-solid fa-apple-alt"></i> Nutrition</li>
+            <li onclick="showSection('blog-section')"><i class="fa-solid fa-newspaper"></i> Blogs</li>
+            <li onclick="showSection('courses')"><i class="fa-solid fa-newspaper"></i>Courses</li>
+            <li><button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></li>
+        </ul>
+    </div>  
+   
+
+    <div class="main-content">
+      
+       <div id="profile" class="section">
+            <h2>User Profile</h2>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter height">
+
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter weight">
+
+            <label for="targetWeight">Target Weight (kg):</label>
+            <input type="number" id="targetWeight" placeholder="Enter target weight">
+
+            <button onclick="calculateBMI()">Calculate BMI</button>
+
+            <h3>Your BMI: <span id="bmiResult">--</span></h3>
+            <h3>Status: <span id="bmiStatus">--</span></h3>
+        </div> 
+        <div id="profile" class="section">
+            <h2>User Profile</h2>
+        
+            <label for="height" class="hi">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter height">
+        
+            <label for="weight" class="hi">Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter weight ">
+        
+            <label for="targetWeight" class="hi">Target Weight (kg):</label>
+            <input type="number" id="targetWeight" placeholder="Enter target weight">
+        
+            <button onclick="calculateBMI()">Calculate BMI</button>
+        
+            <h3>Your BMI: <span id="bmiResult">--</span></h3>
+            <h3>Status: <span id="bmiStatus">--</span></h3>
+        
+            <br><hr><br>
+        
+          
+          <h2>Saved Profiles</h2>
+            <table id="profilesTable" border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        
+                        <th>Height (cm)</th>
+                        <th>Weight (kg)</th>
+                        <th>Target Weight (kg)</th>
+                        <th>BMI</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table> 
+        </div>
+        
+    </div>
+
+<div id="workout" class="section" style="display: none;">
+    <h2 id="new">Workouts</h2>
+</div>
+
+
+ <div id="nutrition" class="section" style="display: none;">
+    <h2 id="new">Nutrition Plan</h2>
+    <p>Select a nutrition plan based on your BMI.</p>
+    <button onclick="updateNutritionPlan()">Get Your Plan</button>
+    <div id="nutritionDetails"></div>
+</div>
+
+<div id="nutrition" class="section" style="display: none;">
+    <h2 id="new">Nutrition Plan</h2>
+    <p>Select a nutrition plan based on your BMI.</p>
+
+    <div class="filters">
+        <label for="typeSelect">Choose Type: </label>
+        <select id="typeSelect">
+            <option value="Veg">Veg</option>
+            <option value="Non-Veg">Non-Veg</option>
+        </select>
+    </div>
+
+    <button onclick="updateNutritionPlan()">Meal Plan</button>
+
+
+    <div id="nutritionDetails" class="plan-container"></div>
+</div>
+
+
+
+
+
+
+
+
+
+<section class="section" id="blog-section" style="display: none;">
+    <div class="row2">
+      <div class="col2">
+        <p>INSIGHTFUL & INSPIRING</p>
+        <h1> Latest Blogs</h1>
+       
+      </div>
+    </div>
+    <div class="row">
+      
+   
+<div class="blog-row">
+    <div class="blog-card"> 
+    <img src="../Images/bbg1.PNG" alt="">
+
+    <div class="card-content">
+      <h4>What is Mindful Eating?</h4>
+      <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
+      <button onclick="openForm('Mindful Eating ', 
+      `The primary distinction between mindful eating and dieting is that the former focuses on the quality of your eating experience, while the latter centers around restricting certain food groups or counting calories.
+  
+      Mindful eating is not a custom weight loss plan; instead, it promotes a healthy and balanced relationship with food, free from guilt or deprivation.
+  
+      Benefits of Mindful Eating:
+      - Improved digestion
+      - Better management of emotional eating
+      - Increased satisfaction from meals
+      - Reduced binge eating
+      - Improved weight management
+      - Enhanced mental and emotional well-being
+  
+      By practicing mindful eating, you’ll be able to enjoy your food more and establish a nurturing, sustainable approach to nourishment.
+  
+      Principles of Mindful Eating:
+      1. Cultivate the Right Space: Design a space that promotes relaxation and focus during mealtimes, such as setting the table with attractive dinnerware, lighting candles, or playing soft background music.
+      
+      2. Listen to Your Body: One of the core principles of mindful eating is tuning in to your body’s natural signals for hunger and satiety. By paying close attention to these cues, you can avoid overeating and develop a healthier relationship with food.
+      `)">
+        Read More
+      </button>  
+      </div>
+  </div>
+  
+ 
+<div class="blog-card">
+    
+    <img src="../Images/yuu.jpg" alt="">
+    <div class="card-content">
+
+      <h4>How to Make Exercise a Regular Habit in 6 Steps</h4>
+      <p>These six steps can help shift your focus so that you approach exercise as a means to a healthier life, which is essential for making it a daily habit</p>
+      <button onclick="openForm('6 Steps ', 
+      `1.Treat yourself: Give yourself a small nonfood-related reward after completing a workout, doing all of the workouts you scheduled for yourself in a week or when you hit a goal.
+      2.Schedule your workouts: If you live by your appointment calendar, it may sometimes feel as though your schedule takes over your life and limits the amount of time available for a workout.
+      3.Set a learning goal: There are two primary types of goals: outcome and learning. Outcome goals focus on the end result of performing a task, such as completing a marathon. Learning goals, however, focus on the process or steps required to achieve an outcome, such as learning how to exercise with a kettlebell.
+      4.Change your mindset: Refocus your outcome goals to focus on quality of life rather than trying to achieve some media-defined appearance. 
+      5.Develop a journaling practice: Use a journal to track your progress and record how you feel after you exercise. This doesn’t require lugging a journal with you to the gym for every workout—you could simply use the notes app on your phone to record a few brief statements about how the workout made you feel.
+      6.Find a workout buddy: Enlisting a friend or family member to be a workout partner can give you someone to exercise with, which helps the time pass more quickly.
+      `)">
+        Read More
+      </button>
+    </div>
+  </div>
+  </div>
+
+<div class="blog-row">
+<div class="blog-card">
+  <img src="../Images/bbg3.PNG" alt="Fitness Gym">
+  <div class="card-content">
+    <h4>Time-Friendly Fitness: The Advantages of Gyms with Flexible Hours</h4>
+    <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
+    <button onclick="openForm(
+  `Finding time for physical activity in today’s fast-paced world can be challenging. We totally get it. Juggling work, childcare, and social obligations often leaves little room for regular exercise.
+
+That is why finding a gym that can fit your busy schedule is so important when trying to make time to work out! Flexible-hour fitness centers provide the same benefits as traditional gyms but offer the freedom to work out whenever it suits your schedule.
+
+Joining a gym can create a lifestyle that works for you—making your needs a priority. Find a local club with flexible hours for all schedules.`,
+  `Time-Friendly Fitness: The Advantages of Gyms with Flexible Hours`
+)">
+  Read More
+</button>
+
+  </div>
+</div>
+
+
+
+ <div id="popupForm" class="form-popup">
+    <div class="form-container">
+      <span class="close-btn" onclick="closeForm()">&times;</span>
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+    </div>
+  </div>
+  </div> 
+       
+<div class="blog-card">
+  <img src="../Images/bbg4.PNG" alt="">
+  <div class="card-content">
+    <h4>The Ultimate Full-body Circuit Workout for Beginners</h4>
+    <p>Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.</p>
+    <button onclick="openForm(
+      `Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.
+      One of our favorite ways to bust out of a workout rut is by mixing in some circuit training. If you’re a beginner—or just looking to add something new to your routine—circuit workouts are a dynamic and efficient workout style that combines strength and cardio exercises, making it ideal for a lot of diverse groups. Read on to rediscover the forgotten fun of circuit workouts or learn about circuit training workouts for the first time.`,
+      `The Ultimate Full-body Circuit Workout for Beginners`
+    )">
+      Read More
+    </button>
+  </div>
+</div>
+</div>
+<div class="row">
+
+</section>
+
+
+
+<section id="courses" class="section" style="display:none;">
+ 
+  <div id="courses-container" class="courses-row"></div>
+</section>
+
+
+
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+
+<script src="user_dashboard.js" defer></script>
+
+<script src="user_dashboard.js"></script>
+
+
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - FitnessPro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="user_dashboard.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">FitnessPro</div>
+    <ul class="nav-links">
+      <li data-section="overview" class="active"><a href="#">Overview</a></li>
+      <li data-section="bmi"><a href="#">BMI</a></li>
+      <li data-section="workouts"><a href="#">Workouts</a></li>
+      <li data-section="nutrition"><a href="#">Nutrition</a></li>
+      <li data-section="courses"><a href="#">Courses</a></li>
+      <li data-section="coach"><a href="#">AI Coach</a></li>
+    </ul>
+  </nav>
+
+<section id="overview" class="section visible">
+  <div class="welcome-message">
+    <h1>👋 Welcome Back, Jashandeep!</h1>
+    <p>Here’s your profile overview and latest fitness progress.</p>
+  </div>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <img src="https://via.placeholder.com/100" alt="User Profile" class="profile-img">
+      <div class="profile-info">
+        <h2 id="userName">Jashandeep Kaur</h2>
+        <p id="userGoal">Fitness Goal: Muscle Gain 💪</p>
+        <p id="userEmail">Email: jashandeep@example.com</p>
+      </div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat">
+        <h3>Age</h3>
+        <p>22</p>
+      </div>
+      <div class="stat">
+        <h3>Height</h3>
+        <p>165 cm</p>
+      </div>
+      <div class="stat">
+        <h3>Weight</h3>
+        <p>58 kg</p>
+      </div>
+      <div class="stat">
+        <h3>Progress</h3>
+        <p>75%</p>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <button id="editProfileBtn">✏️ Edit Profile</button>
+      <button id="logoutBtn">🚪 Logout</button>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- BMI Section -->
+  <section id="bmi" class="section">
+    <h2>BMI Calculator</h2>
+
+    <div class="bmi-input">
+      <div>
+        <label>Height (cm)</label>
+        <input type="number" id="height" placeholder="e.g. 162">
+      </div>
+      <div>
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" placeholder="e.g. 37">
+      </div>
+      <button id="calcBMI">Calculate</button>
+    </div>
+
+    <div class="bmi-result-container">
+      <div class="bmi-details">
+        <p><strong>Your BMI:</strong> <span id="bmiValue">--</span></p>
+        <p><strong>Category:</strong> <span id="bmiCategory">--</span></p>
+        <p><strong>Height:</strong> <span id="bmiHeight">--</span> cm</p>
+        <p><strong>Weight:</strong> <span id="bmiWeight">--</span> kg</p>
+
+        <div class="bmi-categories-box">
+          <h4>BMI Categories:</h4>
+          <p>Underweight: Below 18.5</p>
+          <p>Normal weight: 18.5 – 24.9</p>
+          <p>Overweight: 25 – 29.9</p>
+          <p>Obese: 30 and above</p>
+        </div>
+      </div>
+
+      <div class="bmi-chart">
+        <canvas id="bmiChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workouts Section -->
+  <section id="workouts" class="section">
+    <h2>Workouts</h2>
+
+    <div class="workout-container">
+
+      <!-- Workout Card 1 -->
+      <div class="workout-card">
+        <img src="image1.png" alt="Workout">
+        <h3>Full Body Strength Training</h3>
+        <p>A comprehensive strength workout targeting all major muscle groups using compound movements.</p>
+
+        <div class="workout-info">
+          <span>🕒 45 min</span>
+          <span class="level">Intermediate</span>
+        </div>
+
+        <div class="tags">
+          <span>chest</span>
+          <span>back</span>
+          <span>shoulders</span>
+          <span>arms</span>
+          <span>legs</span>
+          <span>core</span>
+        </div>
+
+        <button class="start-btn">Start Workout</button>
+      </div>
+
+      <!-- Workout Card 2 -->
+      <div class="workout-card">
+        <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1" alt="Yoga">
+        <h3>Yoga Flow for Flexibility</h3>
+        <p>A gentle yoga sequence to improve flexibility and mindfulness.</p>
+
+        <div class="workout-info">
+          <span>🕒 30 min</span>
+          <span class="level beginner">Beginner</span>
+        </div>
+
+        <div class="tags">
+          <span>core</span>
+          <span>back</span>
+          <span>legs</span>
+          <span>shoulders</span>
+        </div>
+
+        <button class="start-btn">Start Workout</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Nutrition Plans Container -->
+  <section id="nutrition" class="section">
+  <h2>Nutrition Plans</h2>
+
+  <!-- Filters -->
+  <div class="nutrition-filters">
+    <select id="typeFilter">
+      <option value="all">All Types</option>
+      <option value="veg">Vegetarian</option>
+      <option value="nonveg">Non-Vegetarian</option>
+      <option value="vegan">Vegan</option>
+    </select>
+
+    <select id="calorieFilter">
+      <option value="all">All Calories</option>
+      <option value="1500">1500 kcal</option>
+      <option value="1800">1800 kcal</option>
+      <option value="2200">2200 kcal</option>
+    </select>
+  </div>
+
+  <!-- Nutrition Plans Container -->
+  <div class="nutrition-container">
+
+    <!-- Plan 1 -->
+    <div class="nutrition-card" data-type="nonveg" data-calories="1800">
+      <h3>Balanced Weight Loss Plan</h3>
+      <p>A well-balanced diet designed for sustainable weight loss with proper calorie distribution.</p>
+      <div class="plan-meta">
+        <span class="badge nonveg">non-veg</span>
+        <span class="calories">1800 kcal/day</span>
+      </div>
+      <h4>Meals (4)</h4>
+      <ul class="meal-list">
+        <li>Breakfast – 400 kcal</li>
+        <li>Lunch – 500 kcal</li>
+        <li>Dinner – 450 kcal</li>
+        <li>Snacks – 450 kcal</li>
+      </ul>
+      <button class="view-btn" data-fullplan="Breakfast: Oatmeal with boiled eggs and fruit juice. 
+Lunch: Grilled chicken breast with brown rice and vegetables. 
+Dinner: Fish curry with steamed vegetables. 
+Snacks: Yogurt and almonds.">View Full Plan</button>
+    </div>
+
+    <!-- Plan 2 -->
+    <div class="nutrition-card" data-type="veg" data-calories="2200">
+      <h3>Plant-Based Power Plan</h3>
+      <p>A nutritious vegetarian plan packed with plant-based proteins and essential nutrients.</p>
+      <div class="plan-meta">
+        <span class="badge veg">veg</span>
+        <span class="calories">2200 kcal/day</span>
+      </div>
+      <h4>Meals (4)</h4>
+      <ul class="meal-list">
+        <li>Breakfast – 500 kcal</li>
+        <li>Lunch – 550 kcal</li>
+        <li>Dinner – 550 kcal</li>
+        <li>Snacks – 600 kcal</li>
+      </ul>
+      <button class="view-btn" data-fullplan="Breakfast: Smoothie with oats, banana, and chia seeds.
+Lunch: Paneer curry with brown rice and salad.
+Dinner: Lentil soup with whole wheat roti.
+Snacks: Fruit bowl with nuts.">View Full Plan</button>
+    </div>
+
+    <!-- Plan 3 -->
+    <div class="nutrition-card" data-type="vegan" data-calories="1500">
+      <h3>Vegan Light Plan</h3>
+      <p>A calorie-controlled vegan plan ideal for maintaining energy with clean, plant-based meals.</p>
+      <div class="plan-meta">
+        <span class="badge vegan">vegan</span>
+        <span class="calories">1500 kcal/day</span>
+      </div>
+      <h4>Meals (4)</h4>
+      <ul class="meal-list">
+        <li>Breakfast – 350 kcal</li>
+        <li>Lunch – 400 kcal</li>
+        <li>Dinner – 400 kcal</li>
+        <li>Snacks – 350 kcal</li>
+      </ul>
+      <button class="view-btn" data-fullplan="Breakfast: Vegan pancakes with maple syrup.
+Lunch: Tofu stir-fry with brown rice.
+Dinner: Quinoa bowl with veggies and chickpeas.
+Snacks: Green smoothie and nuts.">View Full Plan</button>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Courses Section -->
+ 
+  <!-- Main Section -->
+ <section id="courses" class="section">
+
+   
+  <!-- Course Card View (shown by default) -->
+  <section id="courseCardView">
+    <div class="course-card">
+      <img src="image.png" alt="Course Thumbnail" />
+      <h2>Complete Beginner Fitness Journey</h2>
+      <p>Build a solid foundation in fitness with expert-guided lessons.</p>
+      <p><strong>By Mike Chen</strong></p>
+      <p>⏱ 180 min | 6 Lessons</p>
+      <button id="viewCourseBtn">View Course</button>
+    </div>
+  </section>
+
+  <!-- Course Detail View (hidden by default) -->
+  <section id="courseDetailView" style="display: none;">
+    <button id="backBtn">&larr; Back to Courses</button>
+    <h1>Complete Beginner Fitness Journey</h1>
+
+    <div class="course-container">
+      <!-- Video and Description -->
+      <div class="video-area">
+        <video id="videoPlayer" controls width="100%">
+          <source id="videoSource" src="" type="video/mp4" />
+          Your browser does not support video.
+        </video>
+        <div id="lessonDescription" class="lesson-description">
+          Select a lesson to view details here.
+        </div>
+      </div>
+
+      <!-- Lessons -->
+      <div class="lesson-list">
+        <h3>Lessons</h3>
+        <ul id="lessonList">
+          <!-- Lessons will be loaded here -->
+        </ul>
+        <button id="rateBtn">⭐ Rate This Course</button>
+
+<!-- Popup Modal -->
+<div id="ratingModal" class="modal">
+  <div class="modal-content">
+    <h2>Rate the Course</h2>
+
+    <div class="stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <textarea id="reviewMsg" placeholder="Write your review here..."></textarea>
+
+    <div class="modal-actions">
+      <button id="cancelBtn">Cancel</button>
+      <button id="submitBtn">Submit Rating</button>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- AI Coach Section -->
+  <section id="coach" class="section">
+    <h2>AI Coach</h2>
+    <p>Ask your fitness questions here (coming soon 🤖)</p>
+  </section>
+
+  <script src="user_dashboard.js"></script>
+
+  <!-- Section Switcher Script -->
+  <script>
+    const navItems = document.querySelectorAll('.nav-links li');
+    const sections = document.querySelectorAll('.section');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetSection = item.getAttribute('data-section');
+
+        // Toggle active menu item
+        navItems.forEach(li => li.classList.remove('active'));
+        item.classList.add('active');
+
+        // Show the target section
+        sections.forEach(section => {
+          if (section.id === targetSection) {
+            section.classList.add('visible');
+          } else {
+            section.classList.remove('visible');
+          }
+        });
+      });
+    });
+  </script>
+  <!--Nutrition Sec-->
+  <script>
+const typeFilter = document.getElementById('typeFilter');
+const calorieFilter = document.getElementById('calorieFilter');
+const cards = document.querySelectorAll('.nutrition-card');
+
+function filterNutrition() {
+  const type = typeFilter.value;
+  const calories = calorieFilter.value;
+
+  cards.forEach(card => {
+    const matchesType = (type === 'all' || card.dataset.type === type);
+    const matchesCalories = (calories === 'all' || card.dataset.calories === calories);
+    card.style.display = (matchesType && matchesCalories) ? 'block' : 'none';
+  });
+}
+
+typeFilter.addEventListener('change', filterNutrition);
+calorieFilter.addEventListener('change', filterNutrition);
+
+// View Full Plan Button
+document.querySelectorAll('.view-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const fullPlan = button.getAttribute('data-fullplan');
+    alert("🍽 Full Nutrition Plan:\n\n" + fullPlan);
+  });
+});
+</script>
+
+
+</body>
+</html>
