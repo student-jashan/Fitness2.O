@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 // Twilio setup
 const twilio = require('twilio');
 const accountSid = "AC981630e8322be3d70991337efdefc060";  // Your Account SID
-const authToken = "bd7844623a67d3ffe116867f208049f0";     // Your Auth Token
+const authToken = "f883f7624cfdf4d2c546312d5121e403";     // Your Auth Token
 const TWILIO_NUMBER = "+19034748132";                     // Your Twilio number
 const client = twilio(accountSid, authToken);
 
@@ -326,30 +326,18 @@ app.get('/', (req, res) => {
 // GET all users
 
 app.post('/login', (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password } = req.body;
 
-  // Check required fields
-  if (!email || !password || !role) {
+  if (!email || !password) {
     return res.status(400).json({ success: false, message: 'Please fill all fields' });
   }
 
-  // Decide table
-  const table = role === 'admin' ? 'admin' : 'user';
-
-  // Query database for email & password match
-  const sql = `SELECT * FROM ${table} WHERE email = ? AND password = ?`;
-
+  const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
   db.query(sql, [email.trim(), password.trim()], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ success: false, message: 'Database error' });
-    }
-
+    if (err) return res.status(500).json({ success: false, message: 'Database error' });
     if (results.length > 0) {
-      // Login successful
-      return res.json({ success: true, message: 'Login successful', role });
+      return res.json({ success: true, message: 'Login successful', full_name: results[0].full_name });
     } else {
-      // Invalid credentials
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
   });
@@ -361,7 +349,7 @@ async function sendSMS(to, message) {
     const sms = await client.messages.create({
       body: message,
       from: TWILIO_NUMBER,
-      to: to.startsWith('+') ? to : `+91${to}` // Adjust country code as needed
+      to: to.startsWith('+') ? to : `+91${to}` 
     });
     console.log(`✅ SMS sent to ${to}: ${sms.sid}`);
   } catch (error) {
@@ -375,7 +363,7 @@ app.post('/signup', (req, res) => {
 
   // Required fields check
   if (!full_name || !age || !gender || !email || !password || !fitness_goal) {
-    return res.status(400).json({ success:false, message:'Please fill all required fields' });
+    return res.status(400).json({ success: false, message: 'Please fill all required fields' });
   }
 
   // Password strength validation
@@ -390,24 +378,24 @@ app.post('/signup', (req, res) => {
 
   // Check if email already exists
   db.query('SELECT 1 FROM user WHERE email = ?', [email], (e, results) => {
-    if (e) return res.status(500).json({ success:false, message:'Database error' });
-    if (results.length) return res.status(409).json({ success:false, message:'Email already registered' });
+    if (e) return res.status(500).json({ success: false, message: 'Database error' });
+    if (results.length) return res.status(409).json({ success: false, message: 'Email already registered' });
 
     // Insert new user
     const query = `
       INSERT INTO user 
-      (full_name, age, gender, email, password, height, weight, phone, fitness_goal, role)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "user")
+      (full_name, age, gender, email, password, height, weight, phone, fitness_goal)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const values = [full_name, age, gender, email, trimmedPassword, height || null, weight || null, phone || null, fitness_goal];
 
     db.query(query, values, async (err2) => {
-      if (err2) return res.status(500).json({ success:false, message:'Signup failed' });
+      if (err2) return res.status(500).json({ success: false, message: 'Signup failed' });
 
       // Send Welcome Email
       sendEmail(
-        email, 
-        "Welcome to Fitness Freak 🎉", 
+        email,
+        "Welcome to Fitness Freak 🎉",
         `Hi ${full_name},
 
 Welcome to Fitness Freak! 🏋️‍♂️💪
@@ -416,7 +404,7 @@ We’re excited to have you on board! Here’s what’s waiting for you:
 
 🔥 Personalized Workouts: Achieve your goals faster  
 🥗 Nutrition Guides: Diet plans tailored to you  
-🏆 Challenges & Competitions: Stay motivated & earn rewards  
+🏆 Best Courses: Stay motivated & keep on practicing   
 📊 Fitness Tools: Track your progress like a pro  
 📝 Expert Tips & Blogs: Stay inspired & informed  
 
@@ -434,28 +422,25 @@ Team Fitness Freak`
         console.log("ℹ️ No phone number provided. SMS not sent.");
       }
 
-      // JSON Response
-      res.status(201).json({ 
-        success: true, 
-        message: `
-🎉 Congratulations ${full_name}! Welcome to Fitness Freak! 💪🏋️‍♂️
+//       // JSON Response
+//       res.status(201).json({ 
+//         success: true, 
+//         message: `
+// 🎉 Congratulations ${full_name}! Welcome to Fitness Freak! 💪🏋️‍♂️
 
-Here’s what you can explore right away:
+// Here’s what you can explore right away:
 
-🔥 Personalized Workouts  
-🥗 Nutrition Guides & Diet Plans  
-🏆 Fitness Challenges & Competitions  
-📊 Tools to track your progress  
-📝 Blogs & Expert Tips  
+// 🔥 Personalized Workouts  
+// 🥗 Nutrition Guides & Diet Plans  
+// 🏆 Fitness Challenges & Competitions  
+// 📊 Tools to track your progress  
+// 📝 Blogs & Expert Tips  
 
-✨ Don’t wait! Log in now and kickstart your fitness journey! 🚀`
-      });
-
+// ✨ Don’t wait! Log in now and kickstart your fitness journey! 🚀`
+//       });
     });
   });
 });
-
-
 
 app.get('/users', (req, res) => {
   const sql = 'SELECT user_id AS id, name, gender, age, email FROM users';
@@ -470,23 +455,23 @@ app.get('/users', (req, res) => {
 });
 
 // DELETE user by ID
-app.delete('/users/:id', (req, res) => {
-  const userId = req.params.id;
-  const sql = 'DELETE FROM users WHERE user_id = ?';
+// app.delete('/users/:id', (req, res) => {
+//   const userId = req.params.id;
+//   const sql = 'DELETE FROM users WHERE user_id = ?';
 
-  db.query(sql, [userId], (err, result) => {
-    if (err) {
-      console.error('Database error in DELETE /users/:id:', err);
-      return res.status(500).json({ success: false, message: 'Database error' });
-    }
+//   db.query(sql, [userId], (err, result) => {
+//     if (err) {
+//       console.error('Database error in DELETE /users/:id:', err);
+//       return res.status(500).json({ success: false, message: 'Database error' });
+//     }
 
-    if (result.affectedRows > 0) {
-      return res.json({ success: true, message: 'User deleted' });
-    } else {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-  });
-});
+//     if (result.affectedRows > 0) {
+//       return res.json({ success: true, message: 'User deleted' });
+//     } else {
+//       return res.status(404).json({ success: false, message: 'User not found' });
+//     }
+//   });
+// });
 
 
 // Add BMI and User Details

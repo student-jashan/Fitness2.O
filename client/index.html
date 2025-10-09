@@ -206,132 +206,80 @@
     </div>
   </section>
 
-
-  <!-- Login & Signup Popup
-<div id="loginPopup" class="popup">
-  <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-
-      <div id="loginForm">
-          <h2>Login</h2>
-          <select id="loginRole" onchange="toggleSignup()">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-          </select>
-          <input type="email" id="loginEmail" placeholder="Enter Email" required>
-          <input type="password" id="loginPassword" placeholder="Enter Password" required>
-          <button onclick="login()">Login</button>
-          <p id="signupLink" class="small-text">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
-      </div>
-
-     
-      <div id="signupForm" style="display: none;">
-        <h2>Sign Up</h2>
-        <input type="text" id="signupName" placeholder="Enter Name" required>
-        <input type="number" id="signupAge" placeholder="Enter Age" required>
-        <select id="signupGender">
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
-        <input type="email" id="signupEmail" placeholder="Enter Email" required>
-        <input type="password" id="signupPassword" placeholder="Enter Password" required>
-        
-       
-        <input type="hidden" id="signupRole" value="user">
-        
-        <button onclick="signup()">Sign Up</button>
-        <p class="small-text">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
-      </div>
-      
-  </div>
-</div> -->
-
-
-
 <div id="loginPopup" class="popup d-flex">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
 
-      <!-- Login Form -->
-      <div id="loginForm">
-        <h2>Login</h2>
-        <div class="mb-3">
-          <label class="form-label">Login as:</label>
-          <br>
-          <select id="loginRole" class="form-select">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h2>Login</h2>
 
-        <input type="email" class="form-control mb-3" id="loginEmail" placeholder="Enter Email" required>
-        <br>
-        <input type="password" class="form-control mb-3" id="loginPassword" placeholder="Enter Password" required>
+      <input type="email" class="form-control mb-3" id="loginEmail" placeholder="Enter Email" required>
+      <br>
+      <input type="password" class="form-control mb-3" id="loginPassword" placeholder="Enter Password" required>
 
-        <button class="btn btn-primary" onclick="login()">Login</button>
-        <p class="small-text">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
-      </div>
+      <!-- <button class="btn btn-primary" onclick="login()">Login</button>
+        -->
+       <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+      <p class="small-text">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+    </div>
 
     <!-- Signup Form -->
-<div id="signupForm" style="display: none;">
-  <h2 class="text-center mb-4">Sign Up</h2>
+    <div id="signupForm" style="display: none;">
+      <h2 class="text-center mb-4">Sign Up</h2>
 
-  <div class="signup-row mb-3">
-    <input type="text" class="signup-input" id="signupName" placeholder="Full Name" required>
-  </div>
+      <div class="signup-row mb-3">
+        <input type="text" class="signup-input" id="signupName" placeholder="Full Name" required>
+      </div>
 
-  <div class="signup-row mb-3">
-    <input type="email" class="signup-input" id="signupEmail" placeholder="Email" required>
-  </div>
+      <div class="signup-row mb-3">
+        <input type="email" class="signup-input" id="signupEmail" placeholder="Email" required>
+      </div>
 
-  <div class="signup-row mb-3">
-    <input type="password" class="signup-input" id="signupPassword" placeholder="Password" required minlength="6">
-  </div>
+      <div class="signup-row mb-3">
+        <input type="password" class="signup-input" id="signupPassword" placeholder="Password" required minlength="6">
+      </div>
 
-  <div class="signup-row mb-3">
-    <input type="password" class="signup-input" id="signupConfirmPassword" placeholder="Confirm Password" required minlength="6">
-  </div>
+      <div class="signup-row mb-3">
+        <input type="password" class="signup-input" id="signupConfirmPassword" placeholder="Confirm Password" required minlength="6">
+      </div>
 
-  <!-- Two fields per row -->
-  <div class="signup-row mb-3">
-    <input type="number" class="signup-input" id="signupHeight" placeholder="Height (cm)" min="100" max="250">
-    <input type="number" class="signup-input" id="signupWeight" placeholder="Weight (kg)" min="30" max="200">
-  </div>
+      <!-- Two fields per row -->
+      <div class="signup-row mb-3">
+        <input type="number" class="signup-input" id="signupHeight" placeholder="Height (cm)" min="100" max="250">
+        <input type="number" class="signup-input" id="signupWeight" placeholder="Weight (kg)" min="30" max="200">
+      </div>
 
-  <div class="signup-row mb-3">
-    <input type="number" class="signup-input" id="signupAge" placeholder="Age" min="10" max="100" required>
-    <input type="tel" class="signup-input" id="signupPhone" placeholder="Phone (10 digits)" pattern="[0-9]{10}">
-  </div>
+      <div class="signup-row mb-3">
+        <input type="number" class="signup-input" id="signupAge" placeholder="Age" min="10" max="100" required>
+        <input type="tel" class="signup-input" id="signupPhone" placeholder="Phone (10 digits)" pattern="[0-9]{10}">
+      </div>
 
-  <div class="signup-row mb-3">
-    <select id="signupGender" class="signup-select" required>
-      <option value="">Select Gender</option>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
-    </select>
+      <div class="signup-row mb-3">
+        <select id="signupGender" class="signup-select" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
 
-    <select id="signupGoal" class="signup-select" required>
-      <option value="">Select Fitness Goal</option>
-      <option value="Weight Loss">Weight Loss</option>
-      <option value="Muscle Gain">Muscle Gain</option>
-      <option value="Yoga">Yoga</option>
-    </select>
-  </div>
+        <select id="signupGoal" class="signup-select" required>
+          <option value="">Select Fitness Goal</option>
+          <option value="Weight Loss">Weight Loss</option>
+          <option value="Muscle Gain">Muscle Gain</option>
+          <option value="Yoga">Yoga</option>
+        </select>
+      </div>
 
-  <input type="hidden" id="signupRole" value="user">
+      <button class="signup-btn w-100" onclick="signup()">Sign Up</button>
 
-  <button class="signup-btn w-100" onclick="signup()">Sign Up</button>
-
-  <p class="small-text mt-3 text-center">
-    Already have an account? <a href="#" onclick="showLogin()">Login</a>
-  </p>
-</div>
-
+      <p class="small-text mt-3 text-center">
+        Already have an account? <a href="#" onclick="showLogin()">Login</a>
+      </p>
     </div>
   </div>
+</div>
+
 
   <!-- Workout -->
   <section class="title" id="workouts">

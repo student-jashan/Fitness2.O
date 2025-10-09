@@ -1,142 +1,117 @@
-// Show Signup form (with Admin signup restriction)
+// ==================== SHOW/HIDE FORMS ====================
+
+// Show Signup Form
 function showSignup() {
-  const role = document.getElementById("loginRole").value;
-
-  if (role === "admin") {
-    alert("Admin cannot sign up. Only users can sign up.");
-    return;  // Do not open signup form if admin selected
-  }
-
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupForm").style.display = "block";
 }
 
-// Show Login form
+// Show Login Form
 function showLogin() {
   document.getElementById("signupForm").style.display = "none";
   document.getElementById("loginForm").style.display = "block";
 }
-// Access the navLinks div
-const navLinks = document.getElementById("navLinks");
 
-// Function to show the side menu
-function showMenu() {
-  navLinks.style.right = "0";
+// Close Popup
+function closePopup() {
+  document.getElementById("loginPopup").style.display = "none";
 }
 
-// Function to hide the side menu
-function hideMenu() {
-  navLinks.style.right = "-200px";
-}
+// ==================== SIGNUP ====================
+async function signup() {
+  const full_name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
+  const confirmPassword = document.getElementById("signupConfirmPassword").value.trim();
+  const height = document.getElementById("signupHeight").value;
+  const weight = document.getElementById("signupWeight").value;
+  const age = document.getElementById("signupAge").value;
+  const phone = document.getElementById("signupPhone").value;
+  const gender = document.getElementById("signupGender").value;
+  const fitness_goal = document.getElementById("signupGoal").value;
 
-
-  function showMenu() {
-    navLinks.classList.add("show");
-  }
-
-  function hideMenu() {
-    navLinks.classList.remove("show");
-  }
-
-
-
-// ================= SIGNUP =================
-function signup() {
-  // Get all signup fields
-  const name           = document.getElementById("signupName").value.trim();
-  const email          = document.getElementById("signupEmail").value.trim();
-  const password       = document.getElementById("signupPassword").value.trim();
-  const confirmPassword= document.getElementById("signupConfirmPassword").value.trim();
-  const height         = document.getElementById("signupHeight").value.trim();
-  const weight         = document.getElementById("signupWeight").value.trim();
-  const age            = document.getElementById("signupAge").value.trim();
-  const phone          = document.getElementById("signupPhone").value.trim();
-  const gender         = document.getElementById("signupGender").value;
-  const fitnessGoal    = document.getElementById("signupGoal").value;
-
-  // Check required fields
-  if (!name || !email || !password || !confirmPassword || !age || !gender || !fitnessGoal) {
-    return alert("Please fill all required fields.");
+  // Required fields check
+  if (!full_name || !email || !password || !confirmPassword || !age || !gender || !fitness_goal) {
+    alert("Please fill all required fields!");
+    return;
   }
 
   // Password match check
   if (password !== confirmPassword) {
-    return alert("Passwords do not match.");
+    alert("Passwords do not match!");
+    return;
   }
 
   // Password strength check
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  if (!passwordRegex.test(password)) {
-    return alert("Password must be at least 8 characters, include uppercase, lowercase, number, and special character.");
+  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!pwRegex.test(password)) {
+    alert("Password must be ≥8 chars, include uppercase, lowercase, number & special char");
+    return;
   }
 
-  // Optional: validate phone length if entered
-  if (phone && !/^\d{10}$/.test(phone)) {
-    return alert("Phone number must be 10 digits.");
-  }
+  // Send signup data to server
+  try {
+    const response = await fetch('/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name, email, password, height, weight, age, phone, gender, fitness_goal })
+    });
 
-  // Prepare data to send (exclude confirmPassword)
-  const data = {
-    full_name: name,
-    email,
-    password,
-    height: height || null,
-    weight: weight || null,
-    age,
-    phone: phone || null,
-    gender,
-    fitness_goal: fitnessGoal
-  };
+    const data = await response.json();
 
-  // Send POST request to backend
-  fetch("/signup", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-    if (response.success) {
-      alert("Signup successful! Please login.");
-      showLogin(); // switch back to login form
-    } else {
-      alert(response.message);
-    }
-  })
-  .catch(() => alert("Signup failed. Please try again."));
-}
-
-
-// ================= LOGIN =================
-function login() {
-  const email    = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-  const role     = document.getElementById("loginRole").value;
-
-  if (!email || !password || !role) {
-    return alert("Please fill all fields.");
-  }
-
-  fetch("/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password, role })
-  })
-  .then(res => res.json())
-  .then(data => {
     if (data.success) {
-      alert("Login successful!");
-      setTimeout(() => {
-        window.location.href = role === "admin"
-          ? "/admin/admin_dashboard.html"
-          : "/user/user_dashboard.html";
-      }, 500);
+      alert(data.message);
+      showLogin(); // show login form after successful signup
     } else {
       alert(data.message);
     }
-  })
-  .catch(() => alert("Login error. Try again."));
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong. Please try again.");
+  }
 }
+
+// ==================== LOGIN ====================
+
+async function login(event) {
+  // Prevent form submission if button is inside a form
+  if (event) event.preventDefault();
+
+  // Get input values
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  // Validate required fields
+  if (!email || !password) {
+    alert("Please fill all required fields!");
+    return;
+  }
+
+  try {
+    // Send login request to server
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Login successful! Welcome " + data.full_name);
+      closePopup(); // hide login popup
+      // Redirect to user dashboard
+     window.location.href = '/user/user_dashboard.html';
+    } else {
+      alert(data.message); // show server error message
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong. Please try again.");
+  }
+}
+
+
 
 function openForm(title, description) {
   document.getElementById("popupForm").style.display = "block";
