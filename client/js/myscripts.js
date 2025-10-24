@@ -72,9 +72,7 @@ async function signup() {
 }
 
 // ==================== LOGIN ====================
-
 async function login(event) {
-  // Prevent form submission if button is inside a form
   if (event) event.preventDefault();
 
   // Get input values
@@ -83,33 +81,52 @@ async function login(event) {
 
   // Validate required fields
   if (!email || !password) {
-    alert("Please fill all required fields!");
+    alert("⚠️ Please fill all required fields!");
     return;
   }
 
   try {
-    // Send login request to server
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+    console.log("🚀 Sending login request to backend...");
+
+    const response = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      // Handle cases like 401 or 500 from backend
+      const errorText = await response.text();
+      console.error("❌ Backend returned an error:", errorText);
+      alert("Login failed! Please check your credentials.");
+      return;
+    }
 
-    if (data.success) {
-      alert("Login successful! Welcome " + data.full_name);
-      closePopup(); // hide login popup
-      // Redirect to user dashboard
-     window.location.href = '/user/user_dashboard.html';
+    const data = await response.json();
+    console.log("📦 Login response received:", data);
+
+    // ✅ Ensure backend sent user ID
+    if (data.success && data.id) {
+      // Save essential data in localStorage
+      localStorage.setItem("userId", data.id);
+      localStorage.setItem("userName", data.full_name || "User");
+      localStorage.setItem("userEmail", data.email || "");
+
+      alert(`✅ Login successful! Welcome, ${data.full_name || "User"}!`);
+
+      // Redirect to dashboard
+      window.location.href = "/user/user_dashboard.html";
     } else {
-      alert(data.message); // show server error message
+      console.warn("⚠️ Backend did not return user ID or success flag.");
+      alert(data.message || "Invalid login response from server.");
     }
   } catch (error) {
-    console.error(error);
-    alert("Something went wrong. Please try again.");
+    console.error("❌ Network or server error:", error);
+    alert("Unable to connect to backend. Please make sure it's running on port 5000.");
   }
 }
+
+
 
 
 

@@ -1,1404 +1,794 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-
-body {
-    background-image: linear-gradient(rgba(36, 35, 39, 0.7), rgba(36, 35, 39, 0.7)), url("../Images/fitness.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-.new {
-    color: white;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-}
-
-.welcome-banner {
-    display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
- 
-  color: #fff;
-  text-align: center;     
-}
-.welcome-banner p{
-    font-size: 40px;
-  }
-
-*{
-    margin:0;
-    padding:0;
-    list-style:none;
-    text-decoration:none;
-}
-.sidebar{
-    position:fixed;
-    left:-250px;
-    width:250px;
-    height:100%;
-    background:#042331;
-    transition: all .5s ease;
-}
-.sidebar h2{
-    font-size: 22px;
-    color: white;
-    text-align: center;
-    line-height: 70px;
-    background:#063146;
-    user-select: none;
-}
-
-.sidebar ul li{
-    display: block;
-    height: 100%;
-    width:100%;
-    line-height:65px;
-    font-size:20px;
-    color: white;
-    padding-left: 40px;
-    box-sizing: border-box;
-    border-top:1px solid rgba(255,255,255,.1);
-    border-bottom:1px solid black;
-    transition: 4s;;
-}
-
-ul li:hover{
-    padding-left: 50px;
-}
-
-.sidebar ul i{
-    margin-right:12px;
-}
-#check{
-    display:none;
-
-}
-label #btn, label #cancel{
-    position:absolute;
-    cursor: pointer;
-    background: #042331;
-    border-radius:3px;
-}
-label #btn{
-    left:40px;
-    top:25px;
-    font-size:35px;
-    color:white;
-    padding:6px 12px;
-    transition: all .5s
-}
-label #cancel{
-    z-index:1111;
-    left:-195px;
-    top:17px;
-    font-size:30px;
-    color:#0a5275;
-    padding:4px 9px;
-    transition:all.5s ease;
-
-}
-#check:checked~.sidebar{
-    left:0;
-}
-
-#check:checked~ label #btn{
-    left: 250px;
-    opacity:0;
-    pointer-events: none;
-}
-#check:checked~ label #cancel{
-    left: 195px;
-}
-#check:checked ~section{
-    margin-left:250px;
-}
-#new{
-    color:white;
-}
-
-.section {
-    display: none;}
-
-
-input {
-    width: 90%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-button {
-    background: #0a5275;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    width: 50%;
-    border-radius: 5px;
-    display: block;
-    margin: 10px auto; 
-}
-
-button:hover {
-    background:#0a5275;
-}
-#workout {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-}
-
-h2, h3 {
-    color: #847373;
-    text-align: center;
-}
-
-ul, ol {
-    margin: 20px 0;
-    padding-left: 20px;
-    color: white;
-}
-
-li {
-    margin-bottom: 10px;
-}
-video {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    height: 250px; 
-    object-fit: cover;
-    margin: 10px auto;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#profile{
-    color: white;
-}
-
-
-#nutrition {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    text-align: center;
-    color: white;
-    height: 100vh; 
-}
-
-
-.meal-plan-container {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 20px; 
-    justify-content: center; 
-    padding: 20px; 
-}
-
-.meal-card {
-    width: 200px; 
-    height: 350px; 
-    border: 1px solid #ccc; 
-    padding: 0px; 
-    box-sizing: border-box; 
-    text-align: center;
-    background-color: #f9f9f9; 
-    border-radius: 8px; 
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out; 
-}
-
-
-.meal-card:hover {
-    transform: scale(1.05); 
-}
-
-
-.meal-image {
-    width: 200px; 
-    height: 150px; 
-    object-fit: cover; 
-    margin-bottom: 10px; 
-    border-radius: 4px;
-}
-
-
-.meal-name {
-    font-weight: bold;
-    color: black;
-    font-size: 16px;
-    margin-top: 10px; 
-}
-
-#profile {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 700px;
-    margin: 30px auto;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-
-#profile input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
-
-#profile button {
-    background-color: #042331;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-#profile button:hover {
-    background-color: #042331;
-}
-
-
-#profile h3 {
-    font-weight: normal;
-    color: #333;
-}
-
-
-#profilesTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 19px;
-}
-
-#profilesTable th, #profilesTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-#profilesTable {
-    color: black; 
-  }
-#profilesTable th {
-    background-color: #042331;
-    color: white;
-    font-size: 8px;
-}
-
-  
-#profilesTable tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-#profilesTable tbody tr:hover {
-    background-color: #ddd;
-}
-
-
-#profile h2 {
-    text-align: center;
-    color: #333;
-}
-
-
-
-.meal-calories {
-    font-size: 14px;
-    color: #555; 
-}
-
-
-.blog-card {
-    width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 20px;
-    text-align: center;
-  }
-  .row {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 20px;
-}
-  
-  .blog-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-  
-  .blog-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 15px 10px 5px;
-  }
-  .form-container {
-    background: white;
-    padding: 20px;
-    width: 400px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-}
-  .blog-card p {
-    font-size: 14px;
-    color: #1d1b1b;
-    padding: 0 15px 15px;
-  }
-  .blog-row {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-  }
-  h2, h3 {
-    color: #fff0f0;
-    text-align: center;
-}
-  .blog-card {
-    width: 300px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-    text-align: center;
-  }
-  .blog-card:hover {
-    transform: scale(1.05);
-  }
-  .card-content {
-    background-color: #fff;
-    color: #000;
-    padding: 20px;
-    border-radius: 12px;
-    overflow-y: auto;
-    max-height: 80vh;
-  }
-  
-  .read-more {
-    background-color: #4A3F35;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-.blog {
-    display: none;
-  }
-  
-.col2{
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
-    color:white;
-}
-@media (min-width: 768px) {
-    .video-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
+:root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --success: #4cc9f0;
+      --danger: #f72585;
+      --warning: #f8961e;
     }
-
-    .video-container div {
-        width: 45%;
-        text-align: center;
-    }
-}
-
-
-.logout-btn {
     
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-size: 16px;
-    margin-top: 10px;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .section {
+      display: none;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section.visible {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .nav-links .nav-item.active .nav-link {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    /* BMI Styles */
+    .bmi-circle {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+    
+    .bmi-bg {
+      fill: none;
+      stroke: #e9ecef;
+      stroke-width: 10;
+    }
+    
+    .bmi-bar {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 565;
+      stroke-dashoffset: 565;
+      transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
+    }
+    
+    .bmi-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    
+    .bmi-value span {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    /* Nutrition Styles */
+    .nutrition-card {
+      transition: transform 0.3s ease;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+    
+    .nutrition-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Course Styles */
+    .course-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+    }
+    
+    .course-card:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Video Course Player Styles */
+    .video-course-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      color: white;
+      overflow-y: auto;
+    }
+    
+    .video-course-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .course-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .course-video-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .course-video {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    .course-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .course-timer {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    
+    .course-details {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .course-exercises {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    
+    .exercise-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .exercise-item:last-child {
+      border-bottom: none;
+    }
+    
+    .exercise-check {
+      margin-right: 15px;
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+    
+    .exercise-check.completed {
+      color: #4cc9f0;
+    }
+    
+    .exercise-info {
+      flex-grow: 1;
+    }
+    
+    .exercise-duration {
+      color: #aaa;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 500px;
+    }
+    
+    .star {
+      font-size: 2rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .star.active, .star:hover {
+      color: #ffc107;
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  
 
-.logout-btn i {
-    margin-right: 8px;
-}
 
-.logout-btn:hover {
-    background-color: #e60000;
-}
-
-
-.section {
-    padding: 20px;
-   
-}
-
-
-
-.filters {
-    text-align: center;
-    margin: 10px 0;
-}
-
-select {
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.plan-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.day-card {
-   
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.day-card:hover {
-    transform: translateY(-5px);
-}
-
-.day-card h3 {
-    margin-top: 0;
-    color: #007BFF;
-}
-
-.meal p {
-    margin: 5px 0 0;
-    font-size: 0.95rem;
-}
-
-.meal img {
-    width: 100%;
-    border-radius: 8px;
-    margin-top: 5px;
-}
-
-.nutrition-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    margin-top: 20px;
-}
-
-
-.nutrition-table th {
-    background-color: #08285a; 
-    color: white;
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-.nutrition-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    vertical-align: top;
-}
-
-
-
-.nutrition-table tbody tr:hover {
-    background-color: #41574d; 
-}
-
-
-.nutrition-table td:first-child {
-    font-weight: bold;
-    width: 10%;
-}
-
-
-.nutrition-table td:nth-child(2) {
-    width: 20%;
-}
-
-
-.nutrition-table td:nth-child(3) {
-    width: 70%;
-} */
-
-
-
-
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  background-color: #393b3a;
-  color: #1a1a1a;
-}
-
-
-
-/* Navbar container */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg,#3b3b3b, #505324);
-  padding: 15px 40px;
-  color: white;
+    /* ====== General Section Styling ====== */
+#workouts {
+  background: linear-gradient(135deg, #eeeeee, #e2e6ec);
+  color: #fff;
+  padding: 60px 20px;
   font-family: 'Poppins', sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo */
-.logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+#workouts .container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #48689b;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Nav links container */
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  margin: 0;
-  padding: 0;
+/* ====== Headings ====== */
+#questionnaire h1,
+#results h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #38bdf8;
+  margin-bottom: 10px;
 }
 
-/* Each nav item */
-.nav-links li {
-  position: relative;
+.subtitle {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 30px;
+  font-size: 1rem;
 }
 
-/* Nav links as buttons */
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 25px;
-  background-color: transparent;
-  transition: all 0.3s ease;
-  font-weight: 500;
+/* ====== Question Sections ====== */
+.question-section {
+  margin-bottom: 20px;
 }
 
-/* Hover effect */
-.nav-links a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-/* Active button style */
-.nav-links .active a {
-  background-color: #ffffff;
-  color: #3b3b3b;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-    text-align: center;
-  }
-
-  .nav-links a {
-    display: block;
-    width: 100%;
-  }
-}
-
-
-/* Navbar */
-/* .navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap; 
-} */
-
-.logo {
-  font-weight: 600;
-  font-size: 18px;
-}
-/* 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.nav-links li {
-  cursor: pointer;
-  padding: 6px 12px;
-  transition: background 0.3s;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.nav-links li:hover {
-  background-color: #e3e9e8;
-} */
-
-.nav-links li.active {
-  background-color: #0ab17b;
-  color: white;
-}
-
-/* Sections */
-.section {
-  display: none;
-  padding: 30px;
-}
-
-.section.visible {
+.question-section label {
   display: block;
-}
-
-/* BMI Box Layout */
-.bmi-box {
-  display: flex;
-  flex-wrap: wrap;  /* ✅ makes inputs stack on mobile */
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.bmi-box input {
-  padding: 8px;
-  width: 120px;
-}
-
-.bmi-box button {
-  background-color: #0ab17b;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-/* Card Layout */
-.card {
-  background: white;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-/* ✅ Responsive Media Queries */
-
-/* Tablet */
-@media (max-width: 900px) {
-  .nav-links {
-    justify-content: center;
-    gap: 10px;
-  }
-  .section {
-    padding: 20px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column; /* logo on top, menu below */
-    align-items: flex-start;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .nav-links li {
-    width: 100%;
-    text-align: left;
-  }
-
-  .bmi-box {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .bmi-box input {
-    width: 100%;
-  }
-
-  .bmi-box button {
-    width: 100%;
-  }
-}
-/* BMI SEC
-.bmi-input {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.bmi-input input {
-  padding: 8px;
-  width: 120px;
-}
-
-.bmi-input button {
-  background-color: #0ab17b;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-/* Layout: details on left, chart on right */
-.bmi-result-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: #f8fdfb;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-}
-
-.bmi-details {
-  flex: 1;
-  min-width: 250px;
-}
-
-.bmi-chart {
-  width: 200px;
-  height: 200px;
-  position: relative;
-}
-
-.bmi-chart canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.bmi-categories-box {
-  background-color: #e8f7f1;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
-}
-
-.bmi-categories-box h4 {
-  margin-bottom: 5px;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .bmi-result-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .bmi-chart {
-    margin-top: 20px;
-  }
-}
-/* WORKOUT SEC */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #e8f9f1;
-  color: #222;
-}
-
-.dashboard {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.welcome {
-  color: #047857;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.workout-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-}
-
-.workout-card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 320px;
-  padding: 18px;
-  transition: transform 0.3s ease;
-}
-
-.workout-card:hover {
-  transform: translateY(-5px);
-}
-
-.workout-card img {
-  width: 100%;
-  border-radius: 10px;
-  height: 180px;
-  object-fit: cover;
-}
-
-.workout-card h3 {
-  font-size: 1.2rem;
-  margin-top: 10px;
-  color: #1f2937;
-}
-
-.workout-card p {
-  font-size: 0.9rem;
-  margin: 8px 0 12px;
-  color: #4b5563;
-}
-
-.workout-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
   margin-bottom: 8px;
 }
 
-.level {
-  background-color: #10b981;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 5px;
-  text-transform: lowercase;
-}
-
-.level.beginner {
-  background-color: #3b82f6;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.tags span {
-  background-color: #d1fae5;
-  color: #047857;
-  padding: 3px 8px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-}
-
-.start-btn {
+/* ====== Input Fields ====== */
+input[type="number"],
+select {
   width: 100%;
-  padding: 10px;
-  background-color: #059669;
-  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.start-btn:hover {
-  background-color: #047857;
-}
-
-/* Nutrition Section */
-/* Nutrition Section */
-#nutrition {
-  padding: 20px 40px;
-}
-
-.nutrition-filters {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.nutrition-filters select {
-  padding: 10px 15px;
-  font-size: 15px;
-  border: 1px solid #d0d0d0;
-  border-radius: 8px;
   outline: none;
-  background-color: #fff;
-  cursor: pointer;
-  transition: 0.2s;
+  font-size: 1rem;
+  background: #334155;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
 }
 
-.nutrition-filters select:hover {
-  border-color: #00a884;
+input[type="number"]:focus,
+select:focus {
+  background: #475569;
+  border: 1px solid #38bdf8;
 }
 
-/* Nutrition Cards */
-.nutrition-container {
+/* ====== Radio Buttons ====== */
+.radio-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.nutrition-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  flex: 1 1 300px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.nutrition-card:hover {
-  transform: translateY(-5px);
-}
-
-.nutrition-card h3 {
-  color: #056152;
-  margin-bottom: 8px;
-}
-
-.nutrition-card p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 12px;
-}
-
-.plan-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.badge {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  text-transform: capitalize;
-  color: white;
-}
-
-.badge.veg { background-color: #2e8b57; }
-.badge.nonveg { background-color: #c0392b; }
-.badge.vegan { background-color: #27ae60; }
-
-.calories {
-  font-weight: 600;
-  color: #00a884;
-}
-
-.meal-list {
-  margin-top: 5px;
-  padding-left: 20px;
-  font-size: 14px;
-  color: #333;
-}
-
-/* View Full Plan Button */
-.view-btn {
-  margin-top: 15px;
-  width: 100%;
-  background: #00a884;
-  color: white;
-  border: none;
-  padding: 10px 0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-weight: 500;
-}
-
-.view-btn:hover {
-  background: #008a6f;
-}
-/* Courses Sec */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f7f8;
-}
-
-.course-card {
-  max-width: 500px;
-  background: #fff;
-  padding: 20px;
-  margin: 50px auto;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.course-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  height:450px;
-}
-
-button {
-  background-color: #00aa7e;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #008f6a;
-}
-
-.course-container {
-  display: flex;
-  max-width: 1100px;
-  margin: 30px auto;
-  gap: 20px;
-  padding: 20px;
-}
-
-.video-area {
-  flex: 2;
-}
-
-.lesson-description {
-  margin-top: 15px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-.lesson-list {
-  flex: 1;
-  background: #eafaf6;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.lesson-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.lesson-list li {
-  background: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Button Style */
-#rateBtn {
-  background-color: #00aa7e;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#rateBtn:hover {
-  background-color: #00aa7e;
-  transform: scale(1.05);
-}
-
-/* Modal Background */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-}
-
-/* Modal Box */
-.modal-content {
-  background: white;
-  border-radius: 20px;
-  padding: 25px 30px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-  animation: popIn 0.3s ease;
-}
-
-/* Heading */
-.modal-content h2 {
-  margin-bottom: 15px;
-  color: #00aa7e;;
-}
-
-/* Stars Section */
-.stars {
-  margin: 15px 0;
-  font-size: 35px;
-  color: gold;
-  cursor: pointer;
-}
-
-.star {
-  transition: transform 0.2s;
-}
-
-.star:hover {
-  transform: scale(1.2);
-}
-
-/* Textarea */
-#reviewMsg {
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  resize: none;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Buttons */
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-#cancelBtn, #submitBtn {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#cancelBtn {
-  background-color: #e5e7eb;
-  color: #374151;
-}
-
-#cancelBtn:hover {
-  background-color: #d1d5db;
-}
-
-#submitBtn {
-  background-color: #00aa7e;;
-  color: white;
-}
-
-#submitBtn:hover {
-  background-color: #00aa7e;;
-}
-
-/* Animation */
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-
-.rating-message {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #00aa7e;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 25px;
-  font-size: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  opacity: 1;
-  transition: opacity 0.8s ease;
-  z-index: 1000;
-}
-/* Profile Card */
-.profile-card {
-  max-width: 600px;
-  margin: 50px auto;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 25px 30px;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.profile-card:hover {
-  transform: translateY(-3px);
-}
-
-/* Header section */
-.profile-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-/* Profile Image */
-.profile-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #00aa7e;;
-}
-
-/* Basic Info */
-.profile-info h2 {
-  margin: 0;
-  font-size: 1.6rem;
-  color: #00aa7e;;
-}
-
-.profile-info p {
-  margin: 5px 0;
-  color: #555;
-}
-
-/* Stats Section */
-.profile-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.radio-option label {
+  color: #e2e8f0;
+}
+
+/* ====== Buttons ====== */
+.btn {
+  background: #38bdf8;
+  color: #0f172a;
+  padding: 12px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  margin: 30px auto 0;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #0ea5e9;
+  transform: scale(1.03);
+}
+
+.back-btn {
+  background: #475569;
+  color: #282d33;
+}
+
+.back-btn:hover {
+  background: #334155;
+}
+
+/* ====== Results Section ====== */
+#results {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.ai-badge {
+  display: inline-block;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.personalization-note {
+  margin: 10px 0 20px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.user-info {
+  background: #334155;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.workout-plan {
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 600px) {
+  #workouts .container {
+    padding: 25px;
+  }
+
+  #questionnaire h1 {
+    font-size: 1.8rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+.progress-bars {
   margin-top: 20px;
 }
-
-.stat {
-  background-color: #F3F4F6;
-  padding: 15px;
-  border-radius: 15px;
+.progress-bar {
+  margin-bottom: 10px;
 }
-
-.stat h3 {
-  font-size: 1rem;
-  color:#00aa7e;;
+.progress-bar-label {
+  font-weight: bold;
   margin-bottom: 5px;
 }
-
-.stat p {
-  font-size: 1.2rem;
-  font-weight: 600;
+.progress-bar-fill {
+  height: 20px;
+  width: 0;
+  background-color: #4caf50;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
 }
 
-/* Action Buttons */
-.profile-actions {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
 
-.profile-actions button {
-  border: none;
-  padding: 10px 18px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s;
-}
 
-#editProfileBtn {
-  background-color: #00aa7e;
-  color: white;
-}
+    /* .section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+        min-height: 100vh;
+    } */
 
-#editProfileBtn:hover {
-  background-color: #00aa7e;
-}
+    .form-section {
+        background: #1a1a2e;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        margin-bottom: 30px;
+    }
 
-#logoutBtn {
-  background-color: #E5E7EB;
-  color: #374151;
-}
+    .form-section.hidden {
+        display: none;
+    }
 
-#logoutBtn:hover {
-  background-color: #D1D5DB;
-}
+    .question-group {
+        margin-bottom: 30px;
+    }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .profile-header {
-    flex-direction: column;
-  }
-}
-/* Welcome Message Section */
-.welcome-message {
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  font-family: 'Poppins', sans-serif;
-}
+    .question-group label {
+        display: block;
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #00f5ff;
+        margin-bottom: 10px;
+    }
 
-.welcome-message h1 {
-  font-size: 2rem;
-  color: #00aa7e;
-  margin-bottom: 8px;
-}
+    .question-group input[type="number"],
+    .question-group input[type="text"],
+    .question-group select {
+        width: 100%;
+        padding: 14px;
+        font-size: 1em;
+        background: #16213e;
+        border: 2px solid #2a4a7f;
+        border-radius: 10px;
+        color: #fff;
+        transition: all 0.3s;
+    }
 
-.welcome-message p {
-  font-size: 1rem;
-  color: #4B5563;
-}
+    .question-group input:focus,
+    .question-group select:focus {
+        outline: none;
+        border-color: #00f5ff;
+        box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+    }
+
+    .question-group select option {
+        background: #16213e;
+        color: #fff;
+    }
+
+    .radio-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .radio-option {
+        position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .radio-option label {
+        display: block;
+        padding: 15px;
+        background: #16213e;
+        border: 2px solid #2a4a7f;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        color: #a0b4d0;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+        background: linear-gradient(135deg, #00f5ff 0%, #00ff88 100%);
+        color: #0f0f1e;
+        border-color: #00f5ff;
+        transform: scale(1.05);
+    }
+
+    .btn {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #00f5ff 0%, #00ff88 100%);
+        color: #0f0f1e;
+        font-size: 1.2em;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 20px;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+    }
+
+    .plan-section {
+        display: none;
+    }
+
+    .plan-section.active {
+        display: block;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, #00f5ff, #00ff88);
+    }
+
+    .stat-value {
+        font-size: 2.5em;
+        font-weight: 700;
+        color: #00f5ff;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: #a0b4d0;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .chart-section {
+        background: #1a1a2e;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+    }
+
+    .chart-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+        color: #00f5ff;
+        text-align: center;
+    }
+
+    .calories-chart {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: 350px;
+        padding: 20px;
+        background: #16213e;
+        border-radius: 16px;
+        position: relative;
+    }
+
+    .calories-chart::before {
+        content: 'Calories';
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: rotate(-90deg) translateX(-50%);
+        color: #5a7ba0;
+        font-size: 0.9em;
+        font-weight: 600;
+    }
+
+    .bar-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        max-width: 100px;
+    }
+
+    .bar {
+        width: 60px;
+        background: linear-gradient(to top, #1e3c72, #00f5ff);
+        border-radius: 10px 10px 0 0;
+        position: relative;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+    }
+
+    .bar::after {
+        content: attr(data-calories);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #00ff88;
+        font-weight: 700;
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    .bar-day {
+        color: #a0b4d0;
+        font-weight: 600;
+        font-size: 0.85em;
+    }
+
+    .workout-plan {
+        display: grid;
+        gap: 20px;
+    }
+
+    .day-card {
+        background: #1a1a2e;
+        padding: 30px;
+        border-radius: 16px;
+        border-left: 5px solid #00f5ff;
+        transition: all 0.3s;
+    }
+
+    .day-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 20px rgba(0, 245, 255, 0.2);
+    }
+
+    .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .day-title {
+        font-size: 1.5em;
+        color: #00f5ff;
+    }
+
+    .day-calories {
+        background: linear-gradient(135deg, #00f5ff 0%, #00ff88 100%);
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: #0f0f1e;
+        font-weight: 700;
+    }
+
+    .exercise-list {
+        display: grid;
+        gap: 15px;
+    }
+
+    .exercise {
+        background: #16213e;
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 3px solid #2a5298;
+    }
+
+    .exercise-name {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .exercise-sets {
+        color: #00ff88;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .exercise-desc {
+        color: #a0b4d0;
+        font-size: 0.9em;
+        line-height: 1.6;
+    }
+
+    .total-summary {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .total-summary h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #00f5ff;
+    }
+
+    .total-calories {
+        font-size: 4em;
+        font-weight: 700;
+        background: linear-gradient(to right, #00f5ff, #00ff88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    @keyframes barGrow {
+        from {
+            height: 0;
+        }
+    }
+
+    .bar.animate {
+        animation: barGrow 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @media (max-width: 768px) {
+        .section {
+            padding: 20px 10px;
+        }
+
+        .form-section {
+            padding: 25px;
+        }
+
+        .radio-group {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .calories-chart {
+            height: 250px;
+        }
+
+        .day-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .total-calories {
+            font-size: 2.5em;
+        }
+    }

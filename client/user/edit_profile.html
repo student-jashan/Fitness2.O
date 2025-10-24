@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile | Fitness Freak</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f6f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .edit-container {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.2s ease-in-out;
+    }
+
+    input:focus {
+      border-color: #28a745;
+    }
+
+    button {
+      width: 100%;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    #updateMsg {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .back-btn a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .back-btn a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Edit Your Profile</h2>
+    <form id="editProfileForm">
+      <label>Full Name</label>
+      <input type="text" id="full_name" required>
+
+      <label>Age</label>
+      <input type="number" id="age" min="1" required>
+
+      <label>Gender</label>
+      <input type="text" id="gender" placeholder="Male / Female / Other" required>
+
+      <label>Email</label>
+      <input type="email" id="email" required>
+
+      <label>Height (cm)</label>
+      <input type="number" id="height">
+
+      <label>Weight (kg)</label>
+      <input type="number" id="weight">
+
+      <label>Phone</label>
+      <input type="text" id="phone">
+
+      <button type="submit">Save Changes</button>
+      <p id="updateMsg"></p>
+    </form>
+
+    <div class="back-btn">
+      <a href="user_dashboard.html">← Back to Profile</a>
+    </div>
+  </div>
+
+ <script>document.addEventListener('DOMContentLoaded', async () => {
+  const BACKEND_URL = "http://localhost:5000";
+  const userId = localStorage.getItem('userId');
+  const msg = document.getElementById('updateMsg');
+
+  if (!userId) {
+    alert('Please log in first.');
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Load existing profile
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/user/${userId}`);
+    const data = await res.json();
+    if (data.success && data.user) {
+      const user = data.user;
+      document.getElementById('full_name').value = user.full_name || '';
+      document.getElementById('age').value = user.age || '';
+      document.getElementById('gender').value = user.gender || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('height').value = user.height || '';
+      document.getElementById('weight').value = user.weight || '';
+      document.getElementById('phone').value = user.phone || '';
+    }
+  } catch (err) {
+    console.error('Error loading profile:', err);
+    msg.textContent = 'Failed to load profile.';
+    msg.style.color = 'red';
+  }
+
+  // Handle form submission
+  const form = document.getElementById('editProfileForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const profileData = {
+      full_name: document.getElementById('full_name').value,
+      age: document.getElementById('age').value,
+      gender: document.getElementById('gender').value,
+      email: document.getElementById('email').value,
+      height: document.getElementById('height').value || null,
+      weight: document.getElementById('weight').value || null,
+      phone: document.getElementById('phone').value || null
+    };
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/user/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profileData)
+      });
+      const data = await res.json();
+      msg.textContent = data.message;
+      msg.style.color = data.success ? 'green' : 'red';
+
+      if (data.success) {
+        setTimeout(() => {
+          window.location.href = 'user_dashboard.html';
+        }, 1500);
+      }
+    } catch (err) {
+      console.error('Update error:', err);
+      msg.textContent = 'Error updating profile.';
+      msg.style.color = 'red';
+    }
+  });
+});
+</script>
+</body>
+</html>
